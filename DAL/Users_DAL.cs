@@ -12,9 +12,6 @@ namespace SignupForm.DAL
     public class Users_DAL
     {
         string conString = ConfigurationManager.ConnectionStrings["AccountConnection"].ToString();
-
-        //Function to read user data
-
         public List<Users> GetAllUsers()
         {
             List<Users> usersList = new List<Users>();
@@ -30,7 +27,6 @@ namespace SignupForm.DAL
                 sqlDA.Fill(dtUsers);
                 conn.Close();
 
-
                 foreach (DataRow dr in dtUsers.Rows)
                 {
                     usersList.Add(new Users
@@ -45,12 +41,11 @@ namespace SignupForm.DAL
                     });
                 }
             }
-
                 return usersList;
         }
 
 
-        //to create new users
+        //To create new users
         public void AddUser(Users user)
         {
             using (SqlConnection conn = new SqlConnection(conString))
@@ -72,9 +67,7 @@ namespace SignupForm.DAL
             }
         }
 
-
-
-        // to delete a user by UserID
+        // To delete a user by UserID
         public bool DeleteUser(int userId)
         {
             using (SqlConnection conn = new SqlConnection(conString))
@@ -82,7 +75,6 @@ namespace SignupForm.DAL
                 SqlCommand cmd = conn.CreateCommand();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandText = "sp_DeleteUser"; // Ensure you have this stored procedure created
-
                 cmd.Parameters.AddWithValue("@UserID", userId);
 
                 conn.Open();
@@ -92,7 +84,6 @@ namespace SignupForm.DAL
                 return rowsAffected > 0;
             }
         }
-
 
     }
 
